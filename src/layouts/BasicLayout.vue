@@ -20,16 +20,21 @@
 
 <script setup lang="ts">
 import {showToast} from "vant";
+import {useRouter} from "vue-router";
+const  router = useRouter();
+
 
 const onClickLeft = () => {
-  alert("左")
+  // 返回上一页
+  router.back();
 };
 const onClickRight = () => {
-  alert("右")
+  router.push("/search");
 };
 
 const onChange = (index) => {
   showToast(`标签 ${index}`);
+
 
 
 };
