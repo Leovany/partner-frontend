@@ -11,7 +11,7 @@
   <!-- 设置垂直间距 -->
   <van-row>
     <van-col span="4" v-for="tag in activeIds">
-      <van-tag closeable size="small" type="primary" @close="close">
+      <van-tag closeable size="small" type="primary" @close="doClose(tag)">
         {{ tag }}
       </van-tag>
 
@@ -89,8 +89,15 @@ const onSearch = (val) => {
  */
 const onCancel = () => {
   searchText.value = '';
-  activeIds.value = '';
+  activeIds.value = [];
   tagList.value = originTagList;
+}
+
+
+const doClose = (tag) => {
+  activeIds.value = activeIds.value.filter(item => {
+    return item !== tag;
+  });
 }
 
 </script>
