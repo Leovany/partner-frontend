@@ -30,11 +30,16 @@
       :items="tagList"
   />
 
-
+  <div style="padding:20px">
+    <van-button block type="primary" @click="onSearchResutl">搜索</van-button>
+  </div>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue";
+import {useRouter} from "vue-router";
+
+var router = useRouter();
 
 // 源数据
 const originTagList = [
@@ -97,6 +102,15 @@ const onCancel = () => {
 const doClose = (tag) => {
   activeIds.value = activeIds.value.filter(item => {
     return item !== tag;
+  });
+}
+
+const onSearchResutl = () => {
+  router.push({
+    path: "/user/list",
+    query: {
+      tags: activeIds.value
+    }
   });
 }
 
