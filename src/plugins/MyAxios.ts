@@ -7,7 +7,7 @@ const myAxios = axios.create({
 });
 
 // 是否携带cookie,true=携带
-// myAxios.defaults.withCredentials = true;
+myAxios.defaults.withCredentials = true;
 
 // 添加请求拦截器
 myAxios.interceptors.request.use(function (config) {
