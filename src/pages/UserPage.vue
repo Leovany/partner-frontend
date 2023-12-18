@@ -20,6 +20,7 @@ import {onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import {showFailToast, showToast} from "vant";
 import myAxios from '../plugins/MyAxios';
+import {getCurrentUser} from "../services/user.ts";
 
 
 const router = useRouter();
@@ -39,13 +40,7 @@ const router = useRouter();
 const user = ref();
 
 onMounted(async () => {
-  const res = await myAxios.get('/user/current');
-  if (res.code === 0) {
-    user.value = res.data;
-    showToast("获取用户信息成功");
-  } else {
-    showFailToast("获取用户信息失败");
-  }
+  user.value = await getCurrentUser();
 
 });
 

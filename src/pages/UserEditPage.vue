@@ -26,6 +26,7 @@ import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import myAxios from '../plugins/MyAxios';
 import {showFailToast, showToast, Toast} from "vant";
+import {getCurrentUser,reqRemoteCurrentUser} from "../services/user.ts";
 
 const route = useRoute();
 const router = useRouter();
@@ -37,14 +38,20 @@ const editUser = ref({
 });
 
 const onSubmit = async (formData) => {
-  // console.log("onSubmit", formData);
+  const currentUser = await getCurrentUser();
+  if(!currentUser){
+    showFailToast("用户未登录");
+    return;
+  }
+  console.log("UserEditPage::onSubmit,", currentUser);
   const res = await myAxios.post('/user/update', {
-    id: 1,
+    id: currentUser.id,
     [editUser.value.editKey]: editUser.value.currentValue
   });
 
   if (res.code === 0 && res.data > 0) {
     showToast('修改成功');
+    await reqRemoteCurrentUser();
     router.back();
   } else {
     showFailToast('修改错误');
