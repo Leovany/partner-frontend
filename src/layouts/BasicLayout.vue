@@ -6,7 +6,10 @@
     </template>
   </van-nav-bar>
   <!-- 中间内容：通过路由动态加载  -->
-  <router-view/>
+  <div id="content">
+    <router-view/>
+  </div>
+
 
   <!-- 底部标签栏 -->
   <!--  <van-tabbar v-model="active" @change="onChange" >-->
@@ -21,7 +24,8 @@
 <script setup lang="ts">
 import {showToast} from "vant";
 import {useRouter} from "vue-router";
-const  router = useRouter();
+
+const router = useRouter();
 
 
 const onClickLeft = () => {
@@ -36,12 +40,13 @@ const onChange = (index) => {
   showToast(`标签 ${index}`);
 
 
-
 };
 
 
 </script>
 
 <style scoped>
-
+#content {
+  padding-bottom: 50px;
+}
 </style>
